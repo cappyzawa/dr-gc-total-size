@@ -22,3 +22,32 @@ blob eligible for deletion: sha256:f251d679a7c61455f06d793e43c06786d7766c88b8c24
 
 This result is useful for keeping track of blobs that are deleted.
 But do you want to know how much size can be reduced anyway?
+
+## Install
+```bash
+$ go get github.com/cappyzawa/dr-gc-total-size/cmd/gcts
+```
+
+or download from https://github.com/cappyzawa/dr-gc-total-size/releases
+
+## How to use
+```
+$ gcts -h
+Usage of gcts:
+  -d string
+        root directory (storage.filesystem.rootdirectory)
+```
+
+### Example
+docker registry config
+```
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+```
+
+`/var/lib/registry` is rootdirectory, so `-d` flag is set this.
+
+```bash
+$ ./bin/registry garbage-collect --dry-run /etc/docker/registry/config.yml -m | gcts -d /var/lib/registry
+```
